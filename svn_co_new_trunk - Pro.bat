@@ -18,11 +18,11 @@ FOR /l %%N IN (1,1,100) DO (
 	IF NOT EXIST PSS-ON-!NUM!* 2>nul (
 		:: 建立空架構
 		:: svn co http://playstar.no-ip.biz:8081/svn/game/PSS-ON-!NUM!/trunk --depth empty PSS-ON-!NUM!
-		svn ls "http://playstar.no-ip.biz:8081/svn/game/PSS-ON-!NUM!/trunk"
+		svn ls --depth empty "http://playstar.no-ip.biz:8081/svn/game/PSS-ON-!NUM!/trunk"
 		:: 若 svn ls 無錯誤產生則 checkout 下來
 		IF !ERRORLEVEL! == 0 (
-			svn co http://playstar.no-ip.biz:8081/svn/game/PSS-ON-!NUM!/trunk PSS-ON-!NUM!
 			ECHO 下載新專案 PSS-ON-!NUM! ...
+			svn co -q http://playstar.no-ip.biz:8081/svn/game/PSS-ON-!NUM!/trunk PSS-ON-!NUM!
 			)
 	) ELSE 2>nul ( REM 2>nul 隱藏錯誤訊息
 		:: ==更新專案==
@@ -46,7 +46,6 @@ ECHO ERROR !!
 PAUSE
 
 :END
-ECHO.
 ECHO.
 ECHO ===更新完畢===
 pause
